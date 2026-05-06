@@ -47,16 +47,20 @@ const allTitle = filmsList.map(film => {
 function App() {
   const [searchInput, setSearchInput] = useState('');
   const [searchGenre, setSearchGenre] = useState('');
-  const [filmsTitleList, setFilmsTitleList] = useState(allTitle);
-  const [filmsTitleFiltered, setFilmsTitleFiltered] = useState(filmsTitleList);
-  const [filmsAllGenre, setFilmsAllGenre] = useState(allGenres);
-  const [filmsAllGenreFilteres, setFilmsAllGenreFilteres] = useState(filmsAllGenre);
+  const [allFilmsList, setAllFilmList] = useState(filmsList);
+  const [allFilmsFiltered, setAllFilmsFiltered] = useState(allFilmsList);
 
   useEffect(() => {
     console.log('sei riuscito a cambiare : ' + searchInput + ' ' + searchGenre);
 
+    const filmsGenreFiltered = allFilmsList.filter(film => {
+      return film.genre.toLowerCase().includes(searchGenre.toLowerCase()) 
+      && 
+      film.title.toLowerCase().includes(searchInput.toLowerCase());
+    })
 
-    
+    setAllFilmsFiltered(filmsGenreFiltered);
+
   }, [searchInput, searchGenre])
 
   return (
@@ -114,9 +118,9 @@ function App() {
         <div className="lista">
           <h3>Lista Film Tutti</h3>
           <ul className="lista-film">
-            {filmsList.map((film, index) => {
+            {allFilmsFiltered.map((film, index) => {
               return (
-                <li key={index}>{film.title}</li>
+                <li key={index}>{film.title} - genere: {film.genre}</li>
               )
             })}
           </ul>
