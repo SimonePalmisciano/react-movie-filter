@@ -1,12 +1,16 @@
-/*
-  Stile generale del progetto
-  ===========================
+/* RESET */
 
-  Questo file contiene gli stili globali dell'applicazione, cioè le regole
-  CSS che si applicano a tutta l'app (reset, tipografia di base, variabili,
-  utility personalizzate, ecc.).
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  Viene importato una sola volta in `src/main.jsx` e ha effetto su tutti i
-  componenti. Per stili specifici di un singolo componente è preferibile
-  usare un CSS Module (es. `NomeComponente.module.css`).
-*/
+.form-control {
+  width: 40%;
+}
+
+.form-select {
+  width: 40%;
+}

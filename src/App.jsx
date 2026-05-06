@@ -38,17 +38,36 @@ function App() {
       <header>
         <h1>Scegli il tuo film preferito</h1>
       </header>
-      <div className="lista">
-        <ul className="lista-film">
-          {filmsList.map((film, index) => {
-            return (
-              <li key={index}>{film.title}</li>
-            )
-          })
-
-          }
-        </ul>
-      </div>
+      <main>
+        <div>
+          <form>
+            <div className="mb-3">
+              <label htmlFor="search" className="form-label">Cerca il Film</label>
+              <input type="text" id="search" className="form-control" />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="">Scegli il genere</label>
+              <select class="form-select" aria-label="Default select" name="films" id="select-genre">
+                {filmsList.map((film, index) => {
+                  return (
+                    <option key={index} value={film.genre}>{film.genre}</option>
+                  )
+                })}
+              </select>
+            </div>
+          </form>
+        </div>
+        <div className="lista">
+          <h3>Lista Film Tutti</h3>
+          <ul className="lista-film">
+            {filmsList.map((film, index) => {
+              return (
+                <li key={index}>{film.title}</li>
+              )
+            })}
+          </ul>
+        </div>
+      </main>
     </div>
   );
 }
