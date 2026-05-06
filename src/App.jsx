@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const filmsList = [
   { title: 'Inception', genre: 'Fantascienza' },
   { title: 'Il Padrino', genre: 'Thriller' },
@@ -30,14 +32,24 @@ const filmsList = [
   { title: 'Black Swan', genre: 'Thriller' },
   { title: 'The King\'s Speech', genre: 'Dramma' },
   { title: 'Toy Story', genre: 'Animazione' },
-]
+];
+
 const allGenres = filmsList.map(film => {
   return film.genre;
 });
 
 const uniqueGenres = [...new Set(allGenres)];
 
+const allTitle = filmsList.map(film => {
+  return film.title;
+});
+
 function App() {
+  const [searchInput, setSearchInput] = useState('');
+  const [searchGenre, setSearchGenre] = useState('');
+  const [filmsTitleList, setFilmsTitleList] = useState(allTitle);
+  const [filmsTitleFiltered, setFilmsTitleFiltered] = useState(filmsTitleList);
+
   return (
     <div className="container">
       <header>
@@ -46,21 +58,48 @@ function App() {
       <main>
         <div>
           <form>
+
             <div className="mb-3">
-              <label htmlFor="search" className="form-label">Cerca il Film</label>
-              <input type="text" id="search" className="form-control" />
+              <label
+                htmlFor="search-input"
+                className="form-label"
+              >
+                Cerca il Film
+              </label>
+              <input
+                type="text"
+                id="search-input"
+                className="form-control"
+                onChange={(event) => setSearchInput(event.target.value)}
+                name="search"
+                value={searchInput}
+              />
             </div>
+
             <div className="mb-3">
-              <label htmlFor="select-genre">Scegli il genere</label>
-              <select className="form-select" aria-label="Default select" name="films" id="select-genre">
+              <label
+                htmlFor="select-genre"
+              >
+                Scegli il genere
+              </label>
+              <select
+                className="form-select"
+                aria-label="Default select"
+                name="films"
+                id="select-genre"
+                value={searchGenre}
+                onChange={(event) => setSearchGenre(event.target.value)}
+              >
                 {uniqueGenres.map((film, index) => {
                   return (
                     <option key={index} value={film}>{film}</option>
                   )
                 })}
               </select>
+
             </div>
           </form>
+
         </div>
         <div className="lista">
           <h3>Lista Film Tutti</h3>
