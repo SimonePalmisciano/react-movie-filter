@@ -49,19 +49,26 @@ function App() {
   const [searchGenre, setSearchGenre] = useState('');
   const [allFilmsList, setAllFilmList] = useState(filmsList);
   const [allFilmsFiltered, setAllFilmsFiltered] = useState(allFilmsList);
+  
+  const [addAFilm, setAddAFilm] = useState('');
 
   useEffect(() => {
     console.log('sei riuscito a cambiare : ' + searchInput + ' ' + searchGenre);
 
     const filmsGenreFiltered = allFilmsList.filter(film => {
-      return film.genre.toLowerCase().includes(searchGenre.toLowerCase()) 
-      && 
-      film.title.toLowerCase().includes(searchInput.toLowerCase());
-    })
+      return film.genre.toLowerCase().includes(searchGenre.toLowerCase())
+        &&
+        film.title.toLowerCase().includes(searchInput.toLowerCase());
+    });
 
     setAllFilmsFiltered(filmsGenreFiltered);
+    setAllFilmList()
 
-  }, [searchInput, searchGenre])
+  }, [searchInput, searchGenre]);
+
+  const submitHandler = (event) => {
+
+  }
 
   return (
     <div className="container">
@@ -124,6 +131,46 @@ function App() {
               )
             })}
           </ul>
+        </div>
+        <div>
+          <form onSubmit={submitHandler}>
+            <div className="mb-3">
+              <label
+                htmlFor="add-film-input"
+                className="form-label"
+              >
+                Inserisci un film che ti piace
+              </label>
+              <input
+                className="form-control"
+                id="add-film-input"
+                name="addFilm"
+                value={addAFilm}
+                onChange={(event) => setAddAFilm(event.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label
+                htmlFor="add-select-genre"
+              >
+                Scegli il genere
+              </label>
+              <select
+                className="form-select"
+                aria-label="Default select"
+                name="films"
+                id="add-select-genre"
+              >
+                <option value="">scegli un genere</option>
+                {uniqueGenres.map((film, index) => {
+                  return (
+                    <option key={index} value={film}>{film}</option>
+                  )
+                })}
+              </select>
+            </div>
+            <button className="btn btn-primary">Aggiungi Film</button>
+          </form>
         </div>
       </main>
     </div>
