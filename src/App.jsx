@@ -49,11 +49,11 @@ function App() {
   const [searchGenre, setSearchGenre] = useState('');
   const [allFilmsList, setAllFilmList] = useState(filmsList);
   const [allFilmsFiltered, setAllFilmsFiltered] = useState(allFilmsList);
-  
+
   const [addAFilm, setAddAFilm] = useState('');
+  const [addGenre, setAddGenre] = useState('');
 
   useEffect(() => {
-    console.log('sei riuscito a cambiare : ' + searchInput + ' ' + searchGenre);
 
     const filmsGenreFiltered = allFilmsList.filter(film => {
       return film.genre.toLowerCase().includes(searchGenre.toLowerCase())
@@ -62,12 +62,14 @@ function App() {
     });
 
     setAllFilmsFiltered(filmsGenreFiltered);
-    setAllFilmList()
 
-  }, [searchInput, searchGenre]);
+  }, [searchInput, searchGenre, allFilmsList]);
 
   const submitHandler = (event) => {
-
+    event.preventDefault();
+    const newFilmsList = [...allFilmsList, {title:addAFilm, genre:addGenre } ];
+    setAllFilmList(newFilmsList);
+    setAddAFilm('');
   }
 
   return (
@@ -132,6 +134,7 @@ function App() {
             })}
           </ul>
         </div>
+
         <div>
           <form onSubmit={submitHandler}>
             <div className="mb-3">
@@ -160,6 +163,8 @@ function App() {
                 aria-label="Default select"
                 name="films"
                 id="add-select-genre"
+                value={addGenre}
+                onChange={(event) => setAddGenre(event.target.value)}
               >
                 <option value="">scegli un genere</option>
                 {uniqueGenres.map((film, index) => {
