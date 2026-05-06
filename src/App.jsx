@@ -31,6 +31,11 @@ const filmsList = [
   { title: 'The King\'s Speech', genre: 'Dramma' },
   { title: 'Toy Story', genre: 'Animazione' },
 ]
+const allGenres = filmsList.map(film => {
+  return film.genre;
+});
+
+const uniqueGenres = [...new Set(allGenres)];
 
 function App() {
   return (
@@ -46,8 +51,8 @@ function App() {
               <input type="text" id="search" className="form-control" />
             </div>
             <div className="mb-3">
-              <label htmlFor="">Scegli il genere</label>
-              <select class="form-select" aria-label="Default select" name="films" id="select-genre">
+              <label htmlFor="select-genre">Scegli il genere</label>
+              <select className="form-select" aria-label="Default select" name="films" id="select-genre">
                 {filmsList.map((film, index) => {
                   return (
                     <option key={index} value={film.genre}>{film.genre}</option>
