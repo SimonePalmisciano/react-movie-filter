@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const filmsList = [
   { title: 'Inception', genre: 'Fantascienza' },
@@ -49,6 +49,15 @@ function App() {
   const [searchGenre, setSearchGenre] = useState('');
   const [filmsTitleList, setFilmsTitleList] = useState(allTitle);
   const [filmsTitleFiltered, setFilmsTitleFiltered] = useState(filmsTitleList);
+  const [filmsAllGenre, setFilmsAllGenre] = useState(allGenres);
+  const [filmsAllGenreFilteres, setFilmsAllGenreFilteres] = useState(filmsAllGenre);
+
+  useEffect(() => {
+    console.log('sei riuscito a cambiare : ' + searchInput + ' ' + searchGenre);
+
+
+    
+  }, [searchInput, searchGenre])
 
   return (
     <div className="container">
@@ -90,6 +99,7 @@ function App() {
                 value={searchGenre}
                 onChange={(event) => setSearchGenre(event.target.value)}
               >
+                <option value="">generi</option>
                 {uniqueGenres.map((film, index) => {
                   return (
                     <option key={index} value={film}>{film}</option>
