@@ -53,9 +53,9 @@ function App() {
             <div className="mb-3">
               <label htmlFor="select-genre">Scegli il genere</label>
               <select className="form-select" aria-label="Default select" name="films" id="select-genre">
-                {filmsList.map((film, index) => {
+                {uniqueGenres.map((film, index) => {
                   return (
-                    <option key={index} value={film.genre}>{film.genre}</option>
+                    <option key={index} value={film}>{film}</option>
                   )
                 })}
               </select>
