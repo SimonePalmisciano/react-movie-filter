@@ -1,48 +1,12 @@
 import { useState, useEffect } from "react";
 
-const filmsList = [
-  { title: 'Inception', genre: 'Fantascienza' },
-  { title: 'Il Padrino', genre: 'Thriller' },
-  { title: 'Titanic', genre: 'Romantico' },
-  { title: 'Batman', genre: 'Azione' },
-  { title: 'Interstellar', genre: 'Fantascienza' },
-  { title: 'Pulp Fiction', genre: 'Thriller' },
-  { title: 'The Shawshank Redemption', genre: 'Thriller' },
-  { title: 'The Godfather Part II', genre: 'Thriller' },
-  { title: 'The Dark Knight', genre: 'Azione' },
-  { title: 'Schindler\'s List', genre: 'Dramma' },
-  { title: 'Avatar', genre: 'Fantascienza' },
-  { title: 'Avengers: Endgame', genre: 'Azione' },
-  { title: 'The Matrix', genre: 'Fantascienza' },
-  { title: 'Forrest Gump', genre: 'Commedia' },
-  { title: 'Fight Club', genre: 'Thriller' },
-  { title: 'The Lord of the Rings: The Fellowship of the Ring', genre: 'Fantasia' },
-  { title: 'Star Wars: A New Hope', genre: 'Fantascienza' },
-  { title: 'The Silence of the Lambs', genre: 'Thriller' },
-  { title: 'Saving Private Ryan', genre: 'Azione' },
-  { title: 'Gladiator', genre: 'Azione' },
-  { title: 'The Lion King', genre: 'Animazione' },
-  { title: 'Jurassic Park', genre: 'Fantascienza' },
-  { title: 'Terminator 2: Judgment Day', genre: 'Fantascienza' },
-  { title: 'The Departed', genre: 'Thriller' },
-  { title: 'Braveheart', genre: 'Azione' },
-  { title: 'The Prestige', genre: 'Thriller' },
-  { title: 'Shutter Island', genre: 'Thriller' },
-  { title: 'The Social Network', genre: 'Dramma' },
-  { title: 'Black Swan', genre: 'Thriller' },
-  { title: 'The King\'s Speech', genre: 'Dramma' },
-  { title: 'Toy Story', genre: 'Animazione' },
-];
+import filmsList from "./data/filmList";
 
 const allGenres = filmsList.map(film => {
   return film.genre;
 });
 
 const uniqueGenres = [...new Set(allGenres)];
-
-const allTitle = filmsList.map(film => {
-  return film.title;
-});
 
 function App() {
   const [searchInput, setSearchInput] = useState('');
@@ -67,10 +31,10 @@ function App() {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    const newFilmsList = [...allFilmsList, {title:addAFilm, genre:addGenre } ];
+    const newFilmsList = [...allFilmsList, { title: addAFilm, genre: addGenre }];
     setAllFilmList(newFilmsList);
     setAddAFilm('');
-  }
+  };
 
   return (
     <div className="container">
@@ -78,104 +42,118 @@ function App() {
         <h1>Scegli il tuo film preferito</h1>
       </header>
       <main>
-        <div>
-          <form>
+        <div className="container">
+          <div className="row">
+            <form className="col-4">
 
-            <div className="mb-3">
-              <label
-                htmlFor="search-input"
-                className="form-label"
-              >
-                Cerca il Film
-              </label>
-              <input
-                type="text"
-                id="search-input"
-                className="form-control"
-                onChange={(event) => setSearchInput(event.target.value)}
-                name="search"
-                value={searchInput}
-              />
-            </div>
+              <div className="mb-3">
+                <label
+                  htmlFor="search-input"
+                  className="form-label"
+                >
+                  Cerca il Film
+                </label>
+                <input
+                  type="text"
+                  id="search-input"
+                  className="form-control"
+                  onChange={(event) => setSearchInput(event.target.value)}
+                  name="search"
+                  value={searchInput}
+                />
+              </div>
 
-            <div className="mb-3">
-              <label
-                htmlFor="select-genre"
-              >
-                Scegli il genere
-              </label>
-              <select
-                className="form-select"
-                aria-label="Default select"
-                name="films"
-                id="select-genre"
-                value={searchGenre}
-                onChange={(event) => setSearchGenre(event.target.value)}
-              >
-                <option value="">generi</option>
-                {uniqueGenres.map((film, index) => {
+              <div className="mb-3">
+                <label
+                  htmlFor="select-genre"
+                >
+                  Scegli il genere
+                </label>
+                <select
+                  className="form-select"
+                  aria-label="Default select"
+                  name="films"
+                  id="select-genre"
+                  value={searchGenre}
+                  onChange={(event) => setSearchGenre(event.target.value)}
+                >
+                  <option value="">generi</option>
+                  {uniqueGenres.map((film, index) => {
+                    return (
+                      <option key={index} value={film}>{film}</option>
+                    )
+                  })}
+                </select>
+
+              </div>
+            </form>
+
+            <div className="lista col-8 d-flex flex-column align-items-center">
+              <h3>Lista Film Tutti</h3>
+              <ul className="lista-film">
+                {allFilmsFiltered.map((film, index) => {
                   return (
-                    <option key={index} value={film}>{film}</option>
+                    <li key={index}>
+                      <div className="card mb-3">
+                        <div className="card-body">
+                          <h5 className="card-title text-center">
+                            {film.title}
+                          </h5>
+                          <hr />
+                          <p className="card-text">
+                            genere: {film.genre}
+                          </p>
+                        </div>
+                      </div>
+                    </li>
                   )
                 })}
-              </select>
-
+              </ul>
             </div>
-          </form>
+          </div>
 
-        </div>
-        <div className="lista">
-          <h3>Lista Film Tutti</h3>
-          <ul className="lista-film">
-            {allFilmsFiltered.map((film, index) => {
-              return (
-                <li key={index}>{film.title} - genere: {film.genre}</li>
-              )
-            })}
-          </ul>
-        </div>
-
-        <div>
-          <form onSubmit={submitHandler}>
-            <div className="mb-3">
-              <label
-                htmlFor="add-film-input"
-                className="form-label"
-              >
-                Inserisci un film che ti piace
-              </label>
-              <input
-                className="form-control"
-                id="add-film-input"
-                name="addFilm"
-                value={addAFilm}
-                onChange={(event) => setAddAFilm(event.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <label
-                htmlFor="add-select-genre"
-              >
-                Scegli il genere
-              </label>
-              <select
-                className="form-select"
-                aria-label="Default select"
-                name="films"
-                id="add-select-genre"
-                value={addGenre}
-                onChange={(event) => setAddGenre(event.target.value)}
-              >
-                <option value="">scegli un genere</option>
-                {uniqueGenres.map((film, index) => {
-                  return (
-                    <option key={index} value={film}>{film}</option>
-                  )
-                })}
-              </select>
-            </div>
-            <button className="btn btn-primary">Aggiungi Film</button>
-          </form>
+          <div>
+            <form onSubmit={submitHandler}>
+              <div className="mb-3">
+                <label
+                  htmlFor="add-film-input"
+                  className="form-label"
+                >
+                  Inserisci un film che ti piace
+                </label>
+                <input
+                  className="form-control"
+                  id="add-film-input"
+                  name="addFilm"
+                  value={addAFilm}
+                  onChange={(event) => setAddAFilm(event.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label
+                  htmlFor="add-select-genre"
+                >
+                  Scegli il genere
+                </label>
+                <select
+                  className="form-select"
+                  aria-label="Default select"
+                  name="films"
+                  id="add-select-genre"
+                  value={addGenre}
+                  onChange={(event) => setAddGenre(event.target.value)}
+                >
+                  <option value="">scegli un genere</option>
+                  {uniqueGenres.map((film, index) => {
+                    return (
+                      <option key={index} value={film}>{film}</option>
+                    )
+                  })}
+                </select>
+              </div>
+              <button className="btn btn-primary">Aggiungi Film</button>
+            </form>
+          </div>
         </div>
       </main>
     </div>

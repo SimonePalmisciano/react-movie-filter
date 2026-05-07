@@ -10,7 +10,8 @@ import './styles/index.css'
 
 
 import App from './App.jsx'
+import AppProva from './AppProva.jsx'
 
 createRoot(document.getElementById('root')).render(
-    <App />
+    <AppProva />
 )
